@@ -35,13 +35,16 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref || github.run_id }}-${{ github.event.inputs.sha }}
   cancel-in-progress: true
 
+env:
+  HEAD_REF: ${{ github.head_ref || github.ref_name }}
+
 jobs:
   bench-server-baseline:
     runs-on: Standard_NC4as_T4_v3
     env:
-      RUNNER_LABEL: Standard_NC4as_T4_v3 # FIXME Do not find a way to not duplicate it
-      N_USERS: 8
       DURATION: 10m
+      N_USERS: 8
+      RUNNER_LABEL: Standard_NC4as_T4_v3 # FIXME Do not find a way to not duplicate it
 
     strategy:
       matrix:
